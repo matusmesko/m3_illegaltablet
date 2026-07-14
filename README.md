@@ -1,4 +1,4 @@
-# 🕶️ m3_illegaltablet — Crime Contracts System for ox_core
+# m3_illegaltablet — Crime Contracts System for ox_core
 
 **A single tablet that turns the whole criminal underworld into a clean, contract‑driven progression system.**
 Players pull out an illegal tablet, browse rotating jobs, run them solo or with a crew, level up two separate XP paths and climb a live leaderboard — all fully server‑authoritative and built natively for **ox_core**.

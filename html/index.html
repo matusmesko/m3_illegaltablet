@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="sk" data-variant="magenta">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tablet</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="scene" id="scene" style="display:none">
+  <div class="tablet-wrap">
+    <div class="tablet">
+      <div class="screen" id="screen">
+
+
+        <aside class="sidebar">
+          <div class="brand">
+            <div class="brand-mark">◆</div>
+            <div>
+              <div class="brand-name">Terminal</div>
+              <div class="brand-sub">SECURE · OFFLINE</div>
+            </div>
+          </div>
+
+          <nav class="nav">
+            <div class="nav-label">Operations</div>
+            <button class="nav-item active" data-page="contracts" onclick="switchPage('contracts')">
+              <span class="nav-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg>
+              </span>
+              Available Contracts
+            </button>
+            <button class="nav-item" data-page="leaderboard" onclick="switchPage('leaderboard')">
+              <span class="nav-icon">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M7 6H4v2a3 3 0 0 0 3 3"/><path d="M17 6h3v2a3 3 0 0 1-3 3"/><path d="M9 18h6"/><path d="M12 14v4"/></svg>
+              </span>
+              Leaderboard
+            </button>
+          </nav>
+
+          <button class="profile-card" onclick="switchPage('profile')">
+            <div class="avatar" id="profile-letter">U</div>
+            <div style="flex:1;min-width:0">
+              <div class="profile-name" id="profile-name">My Profile</div>
+              <div class="profile-status">ONLINE</div>
+            </div>
+          </button>
+        </aside>
+
+
+        <main class="content">
+
+
+          <div class="topbar">
+            <div class="topbar-handle">
+              <span class="at">@</span><span id="player-name-top">HRAC</span>
+            </div>
+
+            <button class="topbar-bell" id="topbar-bell" onclick="openReceiveInviteModal()" style="display:none" title="Crew invite">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <span class="topbar-bell-dot"></span>
+            </button>
+            <div class="topbar-spacer"></div>
+
+            <div id="active-contract-bar" style="display:none;align-items:center;gap:10px">
+
+              <button class="ac-topbar-chip" onclick="switchPage('active-contract')" id="ac-topbar-chip">
+                <span class="ac-topbar-name" id="active-contract-name">–</span>
+                <span class="ac-topbar-timer">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                  <span id="ac-timer-display">00:00:00</span>
+                </span>
+              </button>
+
+              <button class="btn btn-ghost btn-sm" onclick="switchPage('contracts')">
+                Detail
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+          </div>
+
+
+          <section id="page-contracts" class="page active">
+            <div class="page-head">
+              <div>
+                <h1 class="page-title">Available Contracts</h1>
+              </div>
+              <div class="page-actions">
+                <button class="btn btn-ghost" onclick="openFilter()" title="Filter contracts">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1A2 2 0 1 1 7 4.7l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+                </button>
+
+                <button id="btn-toggle-contracts" class="btn btn-good" onclick="toggleReceiving()">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5 11-12"/></svg>
+                  Start Receiving
+                </button>
+              </div>
+            </div>
+
+            <div class="section-rule"></div>
+
+            <div id="contracts-list"></div>
+
+            <div id="no-contracts" class="empty-card" style="display:none">
+              <div class="empty-icon">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 13h18"/></svg>
+              </div>
+              <div class="empty-title">NO AVAILABLE CONTRACTS</div>
+              <div class="empty-sub">While we wait for new contracts to come in, just hang tight.</div>
+              <button class="btn btn-danger" style="margin-top:18px" onclick="openFilter()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1A2 2 0 1 1 7 4.7l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+                Set Contract Filter
+              </button>
+            </div>
+          </section>
+
+
+
+          <section id="page-leaderboard" class="page">
+            <div class="page-head">
+              <div><h1 class="page-title">Leaderboard</h1></div>
+            </div>
+            <div class="section-rule"></div>
+
+
+            <div class="lb-tabs">
+              <button class="lb-tab active-green" id="lb-tab-burglaries" onclick="switchLbTab('burglaries')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Burglaries
+              </button>
+              <button class="lb-tab" id="lb-tab-cartheft" onclick="switchLbTab('cartheft')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v9a2 2 0 0 1-2 2h-2"/><circle cx="7.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+                Boosting
+              </button>
+            </div>
+
+
+            <div id="lb-loading" style="display:none;text-align:center;padding:40px 0">
+              <div class="lb-spinner"></div>
+              <div style="color:var(--text-2);font-size:12px;margin-top:12px;letter-spacing:1px;text-transform:uppercase">Loading...</div>
+            </div>
+
+
+            <div id="lb-content" style="display:none">
+              <div class="lb-head">
+                <span>Rank</span><span>Player</span><span id="lb-xp-label">XP</span>
+              </div>
+              <div id="lb-body"></div>
+            </div>
+          </section>
+
+
+          <section id="page-profile" class="page">
+            <div class="page-head">
+              <div><h1 class="page-title">My Profile</h1></div>
+            </div>
+            <div class="section-rule"></div>
+
+
+            <div class="profile-hero-row">
+              <div class="profile-avatar-large" id="profile-avatar-big">U</div>
+              <div class="profile-hero-info">
+                <div class="profile-name-row">
+                  <div class="profile-hero-name" id="profile-fullname-big">Player</div>
+                  <button class="profile-edit-btn" onclick="openNameModal()" title="Change name">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5Z"/></svg>
+                  </button>
+                </div>
+                <div class="profile-status" style="margin-top:2px">ONLINE</div>
+                <div class="player-id-badge">
+                  <span class="player-id-lbl">PLAYER ID</span>
+                  <span class="player-id-val" id="profile-id-val">----</span>
+                </div>
+              </div>
+
+
+              <div class="profile-xp-stats">
+                <div class="profile-xp-badge green">
+                  <span class="profile-xp-lbl">Burglary XP</span>
+                  <span class="profile-xp-val" id="profile-green-xp">0</span>
+                </div>
+                <div class="profile-xp-divider"></div>
+                <div class="profile-xp-badge red">
+                  <span class="profile-xp-lbl">Boosting XP</span>
+                  <span class="profile-xp-val" id="profile-red-xp">0</span>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="unlock-section-head">CONTRACT UNLOCKS</div>
+            <div id="unlock-grid" class="unlock-grid"></div>
+          </section>
+
+
+          <section id="page-active-contract" class="page">
+            <div class="ac-layout">
+
+
+              <div class="ac-left">
+                <div class="ac-title-row">
+                  <h2 class="ac-title" id="ac-title">CONTRACT</h2>
+                  <div class="ac-special-tag" id="ac-special-tag" style="display:none">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    Special
+                  </div>
+                </div>
+
+                <div class="ac-art" id="ac-art">
+                  <div class="ac-art-glow"></div>
+                  <div class="ac-art-label" id="ac-art-label">CONTRACT</div>
+                </div>
+
+                <div class="ac-meta-list">
+
+                  <div class="ac-meta-row">
+                    <div class="ac-meta-lbl">Contract Type</div>
+                    <div class="ac-meta-val" id="ac-type">–</div>
+                  </div>
+
+                  <div class="ac-meta-row">
+                    <div class="ac-meta-lbl">Time Limit</div>
+                    <div class="ac-meta-val" id="ac-time-limit">–</div>
+                  </div>
+
+                  <div class="ac-reward-pill" id="ac-reward-pill" style="display:none">
+                    <span class="balance-coin" style="width:14px;height:14px"></span>
+                    <span id="ac-reward-val">+0</span>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="ac-right">
+                <div class="ac-user-head">
+                  <div>
+                    <div class="ac-user-name"><span id="ac-username">player</span></div>
+                  </div>
+                  <div class="ac-actions">
+                    <button class="btn btn-ghost" onclick="openShares()">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4Z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg>
+                      Shares
+                    </button>
+                    <button class="btn btn-danger" onclick="cancelContract()">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+                      Cancel Contract
+                    </button>
+                  </div>
+                </div>
+
+                <div class="ac-section-head">
+                  <span class="ac-section-title">CREW MEMBERS</span>
+                  <span class="ac-section-count"><span id="ac-crew-count">1</span><span class="ac-section-total"> / <span id="ac-crew-max">4</span></span></span>
+                </div>
+
+
+                <div id="ac-crew-list" class="ac-crew-list"></div>
+
+                <button class="ac-invite-btn" onclick="openInviteModal()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  INVITE NEW MEMBER
+                </button>
+              </div>
+
+
+              <div class="ac-quote" id="ac-quote"></div>
+
+            </div>
+          </section>
+
+        </main>
+      </div>
+
+
+      <div id="modal-invite" class="shares-backdrop" style="display:none" onclick="if(event.target===this)closeInviteModal()">
+        <div class="modal" style="width:min(380px,88%)" onclick="event.stopPropagation()">
+          <div class="modal-head">
+            <div>
+              <div class="modal-title">Invite to Crew</div>
+              <div class="modal-sub">Enter the 4-digit player ID to send them a crew invite</div>
+            </div>
+            <button class="modal-close" onclick="closeInviteModal()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+          </div>
+          <div class="modal-body" style="padding:20px 4px 8px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+              <input id="invite-id-input" class="invite-id-input" type="text" maxlength="4"
+                     placeholder="0000" inputmode="numeric" autocomplete="off"
+                     onkeydown="if(event.key==='Enter') sendInvite()" />
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-3);letter-spacing:1.4px">
+                ENTER 4-DIGIT PLAYER ID
+              </div>
+            </div>
+          </div>
+          <div class="modal-foot">
+            <button class="btn btn-ghost" onclick="closeInviteModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="sendInvite()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7Z"/></svg>
+              Send Invite
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="modal-crew-invite" class="shares-backdrop" style="display:none">
+        <div class="modal" style="width:min(400px,90%)" onclick="event.stopPropagation()">
+          <div class="modal-head">
+            <div>
+              <div class="modal-title" style="display:flex;align-items:center;gap:8px">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                Crew Invite
+              </div>
+              <div class="modal-sub" id="ci-subtitle">Someone invited you to a crew</div>
+            </div>
+          </div>
+
+          <div class="modal-body" style="padding:16px 4px">
+
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--surface-2);border-radius:8px;margin-bottom:12px">
+              <div class="ac-crew-avatar" id="ci-avatar" style="width:36px;height:36px;font-size:14px;flex-shrink:0">?</div>
+              <div>
+                <div style="font-size:11px;color:var(--text-3);letter-spacing:1px;margin-bottom:2px">LEADER</div>
+                <div style="font-weight:600;color:var(--text-1)" id="ci-leader-name">–</div>
+              </div>
+            </div>
+
+            <div style="padding:12px 16px;background:var(--surface-2);border-radius:8px">
+              <div style="font-size:11px;color:var(--text-3);letter-spacing:1px;margin-bottom:6px">KONTRAKT</div>
+              <div style="font-weight:600;color:var(--text-1);font-size:15px" id="ci-contract-label">–</div>
+              <div style="font-size:11px;color:var(--text-3);margin-top:4px" id="ci-contract-type"></div>
+            </div>
+          </div>
+
+          <div class="modal-foot">
+            <button class="btn btn-ghost" onclick="respondInvite(false)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+              Decline
+            </button>
+            <button class="btn btn-primary" onclick="respondInvite(true)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+              Accept
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="modal-shares" class="shares-backdrop" style="display:none" onclick="if(event.target===this)closeShares()">
+        <div class="shares-panel" onclick="event.stopPropagation()">
+
+          <div class="shares-head">
+            <div>
+              <div class="modal-title">XP Shares</div>
+              <div class="modal-sub">Split the XP reward among crew members — must total 100%</div>
+            </div>
+            <button class="modal-close" onclick="closeShares()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+          </div>
+
+          <div id="shares-list" class="shares-list"></div>
+
+          <div class="shares-foot">
+            <div class="shares-actions">
+              <button class="btn btn-ghost btn-sm" onclick="resetSharesEqual()">Evenly</button>
+              <button class="btn btn-primary btn-sm" onclick="confirmShares()">Save</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div id="modal-filter" class="shares-backdrop" style="display:none" onclick="if(event.target===this)closeFilter()">
+        <div class="modal" onclick="event.stopPropagation()">
+          <div class="modal-head">
+            <div>
+              <div class="modal-title">Filter Contracts</div>
+              <div class="modal-sub">Choose which jobs you want to receive. Disabled jobs won't appear in your queue.</div>
+            </div>
+            <button class="modal-close" onclick="closeFilter()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+          </div>
+
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-2);letter-spacing:1.2px">
+              <span id="filter-active-count">0</span> / <span id="filter-total-count">0</span> ACTIVE
+            </span>
+            <div style="display:flex;gap:6px">
+              <button class="btn btn-sm btn-ghost" onclick="filterDisableAll()">Disable all</button>
+              <button class="btn btn-sm btn-ghost" onclick="filterEnableAll()">Enable all</button>
+            </div>
+          </div>
+
+          <div class="modal-body">
+            <div id="filter-grid" class="filter-grid"></div>
+          </div>
+
+          <div class="modal-foot">
+            <button class="btn btn-danger btn-sm" onclick="filterDisableAll()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+              Reset
+            </button>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-ghost" onclick="closeFilter()">Cancel</button>
+              <button class="btn btn-primary" onclick="saveFilter()">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5 11-12"/></svg>
+                Save Filters
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="modal-name" class="shares-backdrop" style="display:none" onclick="if(event.target===this)closeNameModal()">
+        <div class="modal" style="width:min(360px,86%)" onclick="event.stopPropagation()">
+          <div class="modal-head">
+            <div>
+              <div class="modal-title">Change name</div>
+              <div class="modal-sub">2 - 30 characters, only letters, numbers, spaces and . _ -</div>
+            </div>
+            <button class="modal-close" onclick="closeNameModal()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+          </div>
+          <div class="modal-body" style="padding:20px 4px 8px">
+            <input id="name-modal-input" class="name-modal-input" type="text"
+                   maxlength="30" placeholder="Enter a new name…" autocomplete="off"
+                   onkeydown="onNameModalKey(event)" />
+          </div>
+          <div class="modal-foot">
+            <button class="btn btn-ghost" onclick="closeNameModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="confirmNameModal()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5 11-12"/></svg>
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="modal-detail" class="shares-backdrop" style="display:none" onclick="if(event.target===this)closeDetail()">
+        <div class="confirm-modal" onclick="event.stopPropagation()">
+
+
+          <div class="cm-art" id="cm-art">
+            <div class="cm-art-overlay"></div>
+            <div class="cm-art-header">
+              <div class="cm-title" id="detail-title">Contract</div>
+              <button class="cm-close-btn" onclick="closeDetail()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+              </button>
+            </div>
+          </div>
+
+
+          <div class="cm-body">
+            <p class="cm-question" id="detail-question">Do you really want to accept this contract?</p>
+            <p class="cm-detail-sub" id="detail-sub"></p>
+
+          </div>
+
+
+          <div class="cm-foot">
+            <button class="cm-btn cm-btn-cancel" onclick="closeDetail()">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+              Cancel
+            </button>
+            <button class="cm-btn cm-btn-accept" id="btn-accept-contract" onclick="acceptFromDetail()">
+              <span id="detail-accept-label">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5 11-12"/></svg>
+                Accept
+              </span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div id="lp-wrap" style="display:none">
+  <div id="lp-collar">
+    <div id="lp-cylinder"></div>
+    <div id="lp-driver"></div>
+    <div id="lp-pin">
+      <div class="lp-pin-top"></div>
+      <div class="lp-pin-bott"></div>
+    </div>
+  </div>
+</div>
+
+
+<div id="fear-bar" class="fear-bar fear-hidden">
+  <span class="fear-label">Fear</span>
+  <div class="fear-track">
+    <div class="fear-fill" id="fear-fill"></div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
